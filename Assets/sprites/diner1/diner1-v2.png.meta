@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 05628b3d0aa5c451aacc5a25281da798
-timeCreated: 1474670061
+guid: 003cf20b59fd34ba98034075ef194e8b
+timeCreated: 1474881066
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: dinersheet_0
-    21300002: dinersheet_1
-    21300004: dinersheet_2
-    21300006: dinersheet_3
+    21300000: diner1-v2_0
+    21300002: diner1-v2_1
+    21300004: diner1-v2_2
+    21300006: diner1-v2_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -33,7 +33,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -48,7 +48,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
@@ -57,52 +57,52 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dinersheet_0
+      name: diner1-v2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 467
-        height: 271
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: dinersheet_1
+      name: diner1-v2_1
       rect:
         serializedVersion: 2
-        x: 467
+        x: 512
         y: 0
-        width: 467
-        height: 271
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: dinersheet_2
+      name: diner1-v2_2
       rect:
         serializedVersion: 2
-        x: 934
+        x: 1024
         y: 0
-        width: 467
-        height: 271
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: dinersheet_3
+      name: diner1-v2_3
       rect:
         serializedVersion: 2
-        x: 1401
+        x: 1536
         y: 0
-        width: 467
-        height: 271
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
