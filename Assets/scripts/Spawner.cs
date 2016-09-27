@@ -2,8 +2,7 @@
 
 public class Spawner : MonoBehaviour
 {
-
-    private float spawnBaseRate = 0.15f;
+    private const float spawnBaseRate = 0.5f;
     private float spawnRate;
 
     void spawnRandomMonster()
@@ -15,6 +14,8 @@ public class Spawner : MonoBehaviour
         {
             Debug.Log("A mosnter would be spawned");
             SimpleManager.IncrementCustomerCount();
+            const string monsterPath = "characters/monsters/pablo/pablo";
+            GameObject monster = Instantiate(Resources.Load(monsterPath)) as GameObject;
         }
     }
 

@@ -1,11 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using UnityEngine;
 
 public class SimpleManager : MonoBehaviour
 {
     private static SimpleManager _instance;
     public static SimpleManager Instance { get { return _instance; } }
 
-    public Vector2[] monsterSeats;
+    // Set in editor
+    public static Vector2[] MonsterSeats;
+
+    public static bool[] TakenSeats;
+
     private bool monstersSpawning = false;
     private static float amountMonsterCustomers = 0;
 
@@ -29,6 +35,15 @@ public class SimpleManager : MonoBehaviour
 
     private void Start()
     {
+        // Initialize seats with coordinates of sprite seats in scene :(
+        MonsterSeats = new Vector2[3] {new Vector2(-3.0f, 0.0f), new Vector2(-1.4f, 0.0f), new Vector2(1.0f, 0.0f)};
+        TakenSeats = new bool[MonsterSeats.Length];
+        for (var i = 0; i < TakenSeats.Length; ++i)
+        {
+            TakenSeats[i] = false;
+        }
+
+        // Add spawner when ready
         monstersSpawning = true;
         this.gameObject.AddComponent<Spawner>();
     }
