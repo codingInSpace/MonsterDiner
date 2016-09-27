@@ -26,4 +26,10 @@ public class SimpleManager : MonoBehaviour
             _instance = this;
         }
     }
+
+    private void Start()
+    {
+        monstersSpawning = true;
+        this.gameObject.AddComponent<Spawner>();
+    }
 }
