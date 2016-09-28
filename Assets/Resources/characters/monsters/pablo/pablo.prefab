@@ -70,6 +70,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0357aa049dfd84091c0ffb2ad01416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NeedsInvertedDirection: 1
+  SittingHeightDistance: 0.7
+  HasSeat: 0
+  SeatIndex: 0
+  TargetPos: {x: 0, y: 0}
+  HasEdgeSeat: 0
 --- !u!212 &212000010663250368
 SpriteRenderer:
   m_ObjectHideFlags: 1
