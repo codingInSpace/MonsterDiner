@@ -49,12 +49,12 @@ namespace Assets.scripts.monster
             Vector3 currentPos = _monster.gameObject.transform.position;
             float target = _monster.TargetPos.x;
 
-            if (currentPos.x < target - 0.05f)
+            if (currentPos.x < target - 0.005f)
             {
                 _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 6);
                 _monster.gameObject.transform.Translate(0.05f, 0.0f, 0.0f);
             }
-            else if (currentPos.x > target + 0.05f)
+            else if (currentPos.x > target + 0.005f)
             {
                 _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 4);
                 _monster.gameObject.transform.Translate(-0.05f, 0.0f, 0.0f);
@@ -72,7 +72,7 @@ namespace Assets.scripts.monster
                     {
                         _monster.GetComponent<SpriteRenderer>().flipX = true;
                     }
-                    
+
                     UpdateState();
                 }
                 else

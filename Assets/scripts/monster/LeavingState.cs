@@ -47,24 +47,26 @@ namespace Assets.scripts.monster
             if (_leaveTarget == Vector2.zero) return;
             float target = _leaveTarget.x;
 
-            if (currentPos.x < target - 0.05f)
+            if (currentPos.x < target - 0.005f)
             {
                 if (_monster.NeedsInvertedDirection)
                 {
                     _monster.GetComponent<SpriteRenderer>().flipX = false;
                 }
 
+                _monster.gameObject.GetComponent<Animator>().StopPlayback();
                 _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 6);
                 _monster.gameObject.transform.Translate(0.05f, 0.0f, 0.0f);
             }
 
-            else if (currentPos.x > target + 0.05f)
+            else if (currentPos.x > target + 0.005f)
             {
                 if (_monster.NeedsInvertedDirection)
                 {
                     _monster.GetComponent<SpriteRenderer>().flipX = true;
                 }
 
+                _monster.gameObject.GetComponent<Animator>().StopPlayback();
                 _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 4);
                 _monster.gameObject.transform.Translate(-0.05f, 0.0f, 0.0f);
             }
