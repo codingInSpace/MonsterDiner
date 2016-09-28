@@ -26,6 +26,13 @@ namespace Assets.scripts.monster
                 _monster.HasSeat = true;
                 SimpleManager.TakenSeats[i] = true;
                 _monster.SeatIndex = i;
+
+                // Last seat in line
+                if (i == SimpleManager.TakenSeats.Length - 1)
+                {
+                    _monster.HasEdgeSeat = true;
+                }
+
                 noSeatAvailable = false;
                 break;
             }
@@ -59,7 +66,13 @@ namespace Assets.scripts.monster
                 if (_monster.HasSeat)
                 {
                     _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 5);
-                    _monster.gameObject.transform.position = new Vector3(currentPos.x, _monster.GetSpawnCoordinates().y + 0.5f, currentPos.z);
+                    _monster.gameObject.transform.position = new Vector3(currentPos.x, _monster.GetSpawnCoordinates().y + _monster.SittingHeightDistance, currentPos.z);
+
+                    if (_monster.HasEdgeSeat)
+                    {
+                        _monster.GetComponent<SpriteRenderer>().flipX = true;
+                    }
+                    
                     UpdateState();
                 }
                 else

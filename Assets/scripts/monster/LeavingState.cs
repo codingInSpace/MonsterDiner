@@ -33,6 +33,10 @@ namespace Assets.scripts.monster
                 _monster.GetComponent<SpriteRenderer>().enabled = true;
             }
 
+            // Translate down from sitting place
+            Vector3 currentPos = _monster.gameObject.transform.position;
+            _monster.gameObject.transform.position = new Vector3(currentPos.x, _monster.GetSpawnCoordinates().y, currentPos.z);
+
             this._leaveTarget = new Vector2(_monster.GetSpawnCoordinates().x, _monster.GetSpawnCoordinates().y);
         }
 
@@ -45,11 +49,22 @@ namespace Assets.scripts.monster
 
             if (currentPos.x < target - 0.05f)
             {
+                if (_monster.NeedsInvertedDirection)
+                {
+                    _monster.GetComponent<SpriteRenderer>().flipX = false;
+                }
+
                 _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 6);
                 _monster.gameObject.transform.Translate(0.05f, 0.0f, 0.0f);
             }
+
             else if (currentPos.x > target + 0.05f)
             {
+                if (_monster.NeedsInvertedDirection)
+                {
+                    _monster.GetComponent<SpriteRenderer>().flipX = true;
+                }
+
                 _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 4);
                 _monster.gameObject.transform.Translate(-0.05f, 0.0f, 0.0f);
             }
@@ -58,7 +73,6 @@ namespace Assets.scripts.monster
             else
             {
                 UnityEngine.Object.Destroy(_monster.gameObject);
-                //_monster = null; //read-only
             }
         }
 

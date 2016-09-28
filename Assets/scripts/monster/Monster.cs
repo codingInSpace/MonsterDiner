@@ -5,12 +5,15 @@ namespace Assets.scripts.monster
 {
     public class Monster : MonoBehaviour
     {
+        public bool NeedsInvertedDirection;
+        public float SittingHeightDistance;
         private static Vector3 SpawnCoordinates { get { return new Vector3(-30.0f, 0.5f, 0.0f); } }
 
         // State variables
         [HideInInspector] public bool HasSeat;
         [HideInInspector] public int SeatIndex;
         [HideInInspector] public Vector2 TargetPos;
+        [HideInInspector] public bool HasEdgeSeat;
 
         [HideInInspector] public IMonsterState CurrentState;
         [HideInInspector] public EnteringState EnteringState;
