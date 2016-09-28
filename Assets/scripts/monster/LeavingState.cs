@@ -2,63 +2,72 @@
 
 namespace Assets.scripts.monster
 {
-    public class LeavingState : MonsterState
+    public class LeavingState : IMonsterState
     {
-        public LeavingState(MonsterState state)
-            : this(state.Monster, state.HasSeat, state.SeatIndex)
-        {}
 
-        public LeavingState(Monster monster, bool hasSeat, int seatIndex)
+        private readonly Monster _monster;
+        private Vector2 _leaveTarget;
+
+        public LeavingState(Monster monster)
         {
-            this.Monster = monster;
-            this.HasSeat = hasSeat; //necessary?
-            this.SeatIndex = seatIndex;
+            this._monster = monster;
+            _monster.HasSeat = monster.HasSeat; //necessary?
+            _monster.SeatIndex = monster.SeatIndex;
+
+            this._leaveTarget = Vector2.zero;
+            Initialize();
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             // Find seat and make available
-            if (HasSeat)
+            if (_monster.HasSeat)
             {
-                SimpleManager.TakenSeats[SeatIndex] = false;
-                this.SeatIndex = 0;
+                SimpleManager.TakenSeats[_monster.SeatIndex] = false;
+                _monster.SeatIndex = 0;
             }
 
             // No seat
             else
             {
-                Monster.GetComponent<SpriteRenderer>().enabled = true;
+                _monster.GetComponent<SpriteRenderer>().enabled = true;
             }
 
-            this.TargetPos = new Vector2(Monster.getSpawnCoordinates().x, Monster.getSpawnCoordinates().y);
-            Print();
+            this._leaveTarget = new Vector2(_monster.getSpawnCoordinates().x, _monster.getSpawnCoordinates().y);
         }
 
-        public override void Update()
+        public void Update()
         {
-            Vector3 currentPos = Monster.gameObject.transform.position;
+            Vector3 currentPos = _monster.gameObject.transform.position;
 
-            if (currentPos.x < TargetPos.x - 0.05f)
+            if (_leaveTarget == Vector2.zero) return;
+            float target = _leaveTarget.x;
+
+            if (currentPos.x < target - 0.05f)
             {
-                Monster.gameObject.GetComponent<Animator>().SetInteger("direction", 6);
-                Monster.gameObject.transform.Translate(0.05f, 0.0f, 0.0f);
+                _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 6);
+                _monster.gameObject.transform.Translate(0.05f, 0.0f, 0.0f);
             }
-            else if (currentPos.x > TargetPos.x + 0.05f)
+            else if (currentPos.x > target + 0.05f)
             {
-                Monster.gameObject.GetComponent<Animator>().SetInteger("direction", 4);
-                Monster.gameObject.transform.Translate(-0.05f, 0.0f, 0.0f);
+                _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 4);
+                _monster.gameObject.transform.Translate(-0.05f, 0.0f, 0.0f);
             }
 
             // Monster is at target
             else
             {
-                UnityEngine.Object.Destroy(Monster.gameObject);
-                Monster = null;
+                UnityEngine.Object.Destroy(_monster.gameObject);
+                //_monster = null; //read-only
             }
-
         }
 
-        public override void Print()
+        public void UpdateState()
+        {
+            // No more
+        }
+
+        public void Print()
         {
             Debug.Log("Monster Leaving.");
         }

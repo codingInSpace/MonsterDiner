@@ -2,29 +2,19 @@
 
 namespace Assets.scripts.monster
 {
-    public class EnteringState : MonsterState
+    public class EnteringState : IMonsterState
     {
-        public EnteringState(MonsterState state)
-            : this(state.Monster, state.HasSeat, state.TargetPos, state.SeatIndex)
-        {}
+        private readonly Monster _monster;
 
         public EnteringState(Monster monster)
         {
-            this.Monster = monster;
-            this.HasSeat = false;
-            this.TargetPos = new Vector2();
-            this.SeatIndex = -1;
+            this._monster = monster;
+            _monster.HasSeat = false;
+            _monster.TargetPos = new Vector2();
+            _monster.SeatIndex = -1;
         }
 
-        public EnteringState(Monster monster, bool hasSeat, Vector2 targetPos, int seatIndex)
-        {
-            this.Monster = monster;
-            this.HasSeat = hasSeat;
-            this.TargetPos = targetPos;
-            this.SeatIndex = seatIndex;
-        }
-
-        public override void Initialize()
+        public void Initialize()
         {
             bool noSeatAvailable = true;
 
@@ -32,62 +22,62 @@ namespace Assets.scripts.monster
             for (var i = 0; i < SimpleManager.TakenSeats.Length; ++i)
             {
                 if (SimpleManager.TakenSeats[i] != false) continue;
-                this.TargetPos = SimpleManager.MonsterSeats[i];
-                this.HasSeat = true;
+                _monster.TargetPos = SimpleManager.MonsterSeats[i];
+                _monster.HasSeat = true;
                 SimpleManager.TakenSeats[i] = true;
-                this.SeatIndex = i;
+                _monster.SeatIndex = i;
                 noSeatAvailable = false;
                 break;
             }
 
             if (noSeatAvailable)
             {
-                this.HasSeat = false;
-                this.TargetPos = SimpleManager.doorPos;
+                _monster.HasSeat = false;
+                _monster.TargetPos = SimpleManager.doorPos;
             }
-
-            // Update State to visiting
         }
 
-        public override void Update()
+        public void Update()
         {
-            Vector3 currentPos = Monster.gameObject.transform.position;
+            Vector3 currentPos = _monster.gameObject.transform.position;
+            float target = _monster.TargetPos.x;
 
-            if (currentPos.x < TargetPos.x - 0.05f)
+            if (currentPos.x < target - 0.05f)
             {
-                Monster.gameObject.GetComponent<Animator>().SetInteger("direction", 6);
-                Monster.gameObject.transform.Translate(0.05f, 0.0f, 0.0f);
+                _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 6);
+                _monster.gameObject.transform.Translate(0.05f, 0.0f, 0.0f);
             }
-            else if (currentPos.x > TargetPos.x + 0.05f)
+            else if (currentPos.x > target + 0.05f)
             {
-                Monster.gameObject.GetComponent<Animator>().SetInteger("direction", 4);
-                Monster.gameObject.transform.Translate(-0.05f, 0.0f, 0.0f);
+                _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 4);
+                _monster.gameObject.transform.Translate(-0.05f, 0.0f, 0.0f);
             }
 
             // Monster is at target
             else
             {
-                if (HasSeat)
+                if (_monster.HasSeat)
                 {
-                    Monster.gameObject.GetComponent<Animator>().SetInteger("direction", 5);
-                    Monster.gameObject.transform.position = new Vector3(currentPos.x, Monster.getSpawnCoordinates().y + 0.5f, currentPos.z);
+                    _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 5);
+                    _monster.gameObject.transform.position = new Vector3(currentPos.x, _monster.getSpawnCoordinates().y + 0.5f, currentPos.z);
                     UpdateState();
                 }
                 else
                 {
-                    Monster.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    _monster.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     UpdateState();
                 }
             }
         }
 
-        private void UpdateState()
+        public void UpdateState()
         {
-            Monster.State = new VisitingState(this);
+            VisitingState visitingState = new VisitingState(_monster);
+            _monster.CurrentState = visitingState;
         }
-        public override void Print()
+        public void Print()
         {
-            Debug.Log("Monster Entering: " + ((HasSeat) ? "has seat " + HasSeat + ", ": "") + "targetPos = " + TargetPos.x);
+            Debug.Log("Monster Entering: " + ((_monster.HasSeat) ? "has seat " + _monster.HasSeat + ", ": "") + "targetPos = " + _monster.TargetPos.x);
         }
     }
 }

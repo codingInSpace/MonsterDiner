@@ -2,7 +2,7 @@
 
 public class Spawner : MonoBehaviour
 {
-    private const float spawnBaseRate = 0.5f;
+    private const float spawnBaseRate = 0.15f;
     private float spawnRate;
 
     void spawnRandomMonster()

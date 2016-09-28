@@ -2,39 +2,38 @@
 
 namespace Assets.scripts.monster
 {
-    public class VisitingState : MonsterState
+    public class VisitingState : IMonsterState
     {
+        private readonly Monster _monster;
         private bool _timeToLeave = false;
 
-        public VisitingState(MonsterState state)
-            : this(state.Monster, state.HasSeat, state.TargetPos, state.SeatIndex)
-        {}
-
-        public VisitingState(Monster monster, bool hasSeat, Vector2 targetPos, int seatIndex)
+        public VisitingState(Monster monster)
         {
-            this.Monster = monster;
-            this.HasSeat = hasSeat;
-            this.TargetPos = targetPos;
-            this.SeatIndex = seatIndex;
+            this._monster = monster;
+            _monster.HasSeat = monster.HasSeat;
+            _monster.TargetPos = monster.TargetPos;
+            _monster.SeatIndex = monster.SeatIndex;
+            Initialize();
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
             // Eat or something
             // ...
             Print();
 
             // Randomize visiting time
-            float visitingTime = Random.Range(10.0f, 20.0f);
-            Invoke("SetTimeToLeave", visitingTime);
+            //float visitingTime = Random.Range(10.0f, 20.0f);
+            //Invoke("SetTimeToLeave", visitingTime);
         }
 
         private void SetTimeToLeave()
         {
+            Debug.Log("Time to leave for a monster");
             _timeToLeave = true;
         }
 
-        public override void Update()
+        public void Update()
         {
             // Give money or something
             // ...
@@ -43,16 +42,25 @@ namespace Assets.scripts.monster
             {
                 UpdateState();
             }
+
+
+            float chance = Random.Range(0.0f, 1.0f);
+
+            if (chance < 0.00003f)
+            {
+                SetTimeToLeave();
+            }
         }
 
-        private void UpdateState()
+        public void UpdateState()
         {
-            Monster.State = new LeavingState(this);
+            LeavingState leavingState = new LeavingState(_monster);
+            _monster.CurrentState = leavingState;
         }
 
-        public override void Print()
+        public void Print()
         {
-            Debug.Log("Monster visiting. " + ((HasSeat) ? "has seat " + HasSeat + ", " : "Is inside"));
+            Debug.Log("Monster visiting. " + ((_monster.HasSeat) ? "has seat " + _monster.HasSeat + ", " : "Is inside"));
         }
     }
 }
