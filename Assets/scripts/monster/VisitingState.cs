@@ -20,6 +20,7 @@ namespace Assets.scripts.monster
         {
             // Eat or something
             // ...
+            SimpleManager.IncrementCustomerCount();
             Print();
 
             // Randomize visiting time
@@ -46,7 +47,7 @@ namespace Assets.scripts.monster
 
             float chance = Random.Range(0.0f, 1.0f);
 
-            if (chance < 0.00003f)
+            if (chance < 0.0004f)
             {
                 SetTimeToLeave();
             }

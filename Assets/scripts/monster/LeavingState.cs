@@ -40,6 +40,7 @@ namespace Assets.scripts.monster
             this._leaveTarget = new Vector2(_monster.GetSpawnCoordinates().x, _monster.GetSpawnCoordinates().y);
 
             SimpleManager.PayForFood();
+            SimpleManager.DecrementCustomerCount();
         }
 
         public void Update()

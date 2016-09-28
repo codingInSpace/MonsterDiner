@@ -23,10 +23,23 @@ public class SimpleManager : MonoBehaviour
         Gold += 5;
         GameObject.Find("GoldText").GetComponent<Text>().text = "Gold: " + Gold;
     }
-    
-    public static float GetAmountCustomers { get { return _amountMonsterCustomers; } }
-    public static void IncrementCustomerCount() { ++_amountMonsterCustomers; }
-    public static void DecrementCustomerCount() { --_amountMonsterCustomers; }
+
+    public static void IncrementCustomerCount()
+    {
+        ++_amountMonsterCustomers;
+        UpdateCustomerText();
+    }
+
+    public static void DecrementCustomerCount()
+    {
+        --_amountMonsterCustomers;
+        UpdateCustomerText();
+    }
+
+    private static void UpdateCustomerText()
+    {
+        GameObject.Find("CustomersText").GetComponent<Text>().text = "Customers: " + _amountMonsterCustomers;
+    }
 
     private void Awake()
     {
