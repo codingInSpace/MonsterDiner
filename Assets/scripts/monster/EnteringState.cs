@@ -5,7 +5,7 @@ namespace Assets.scripts.monster
     public class EnteringState : MonsterState
     {
         public EnteringState(MonsterState state)
-            : this(state.Monster)
+            : this(state.Monster, state.HasSeat, state.TargetPos, state.SeatIndex)
         {}
 
         public EnteringState(Monster monster)
@@ -13,9 +13,18 @@ namespace Assets.scripts.monster
             this.Monster = monster;
             this.HasSeat = false;
             this.TargetPos = new Vector2();
+            this.SeatIndex = -1;
         }
 
-        public override void Enter()
+        public EnteringState(Monster monster, bool hasSeat, Vector2 targetPos, int seatIndex)
+        {
+            this.Monster = monster;
+            this.HasSeat = hasSeat;
+            this.TargetPos = targetPos;
+            this.SeatIndex = seatIndex;
+        }
+
+        public override void Initialize()
         {
             bool noSeatAvailable = true;
 
@@ -26,6 +35,7 @@ namespace Assets.scripts.monster
                 this.TargetPos = SimpleManager.MonsterSeats[i];
                 this.HasSeat = true;
                 SimpleManager.TakenSeats[i] = true;
+                this.SeatIndex = i;
                 noSeatAvailable = false;
                 break;
             }
@@ -61,16 +71,20 @@ namespace Assets.scripts.monster
                 {
                     Monster.gameObject.GetComponent<Animator>().SetInteger("direction", 5);
                     Monster.gameObject.transform.position = new Vector3(currentPos.x, Monster.getSpawnCoordinates().y + 0.5f, currentPos.z);
+                    UpdateState();
                 }
                 else
                 {
                     Monster.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    UpdateState();
                 }
             }
-
-
         }
 
+        private void UpdateState()
+        {
+            Monster.State = new VisitingState(this);
+        }
         public override void Print()
         {
             Debug.Log("Monster Entering: " + ((HasSeat) ? "has seat " + HasSeat + ", ": "") + "targetPos = " + TargetPos.x);

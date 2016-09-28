@@ -14,7 +14,7 @@ namespace Assets.scripts.monster
             animator = this.GetComponent<Animator>();
             this.gameObject.transform.position = SpawnCoordinates;
             State = new EnteringState(this);
-            State.Enter();
+            State.Initialize();
             State.Print();
         }
 	

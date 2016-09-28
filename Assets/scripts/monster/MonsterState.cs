@@ -2,7 +2,7 @@
 
 namespace Assets.scripts.monster
 {
-    public abstract class MonsterState
+    public abstract class MonsterState : MonoBehaviour
     {
         public Monster Monster { get; set; }
 
@@ -13,9 +13,11 @@ namespace Assets.scripts.monster
             set { _hasSeat = value; }
         }
 
+        public int SeatIndex { get; set; }
+
         public Vector2 TargetPos { get; set; }
 
-        public abstract void Enter();
+        public abstract void Initialize();
         public abstract void Update();
         public abstract void Print();
     }
