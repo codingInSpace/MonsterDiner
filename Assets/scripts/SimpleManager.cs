@@ -7,8 +7,8 @@ public class SimpleManager : MonoBehaviour
     private static SimpleManager _instance;
     public static SimpleManager Instance { get { return _instance; } }
 
-    // Set in editor
     public static Vector2[] MonsterSeats;
+    public static Vector2 doorPos;
 
     public static bool[] TakenSeats;
 
@@ -35,7 +35,8 @@ public class SimpleManager : MonoBehaviour
 
     private void Start()
     {
-        // Initialize seats with coordinates of sprite seats in scene :(
+        // Initialize seats, door with coordinates of sprite in scene :(
+        doorPos = new Vector2(3.5f, 0.0f);
         MonsterSeats = new Vector2[3] {new Vector2(-3.0f, 0.0f), new Vector2(-1.4f, 0.0f), new Vector2(1.0f, 0.0f)};
         TakenSeats = new bool[MonsterSeats.Length];
         for (var i = 0; i < TakenSeats.Length; ++i)

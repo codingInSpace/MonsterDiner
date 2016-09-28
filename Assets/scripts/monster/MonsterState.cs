@@ -16,5 +16,7 @@ namespace Assets.scripts.monster
         public Vector2 TargetSeat { get; set; }
 
         public abstract void Enter();
+        public abstract void Update();
+        public abstract void Print();
     }
 }
