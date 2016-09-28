@@ -60,7 +60,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Gold: '
+  m_Text: 'Gold: 0'
 --- !u!222 &222000014053922522
 CanvasRenderer:
   m_ObjectHideFlags: 1

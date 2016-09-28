@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimpleManager : MonoBehaviour
 {
@@ -9,16 +10,22 @@ public class SimpleManager : MonoBehaviour
 
     public static Vector2[] MonsterSeats;
     public static Vector2 DoorPos;
-
     public static bool[] TakenSeats;
+
+    public static int Gold = 0;
 
     private bool monstersSpawning = false;
     private static float _amountMonsterCustomers = 0;
 
+
+    public static void PayForFood()
+    {
+        Gold += 5;
+        GameObject.Find("GoldText").GetComponent<Text>().text = "Gold: " + Gold;
+    }
+    
     public static float GetAmountCustomers { get { return _amountMonsterCustomers; } }
-
     public static void IncrementCustomerCount() { ++_amountMonsterCustomers; }
-
     public static void DecrementCustomerCount() { --_amountMonsterCustomers; }
 
     private void Awake()

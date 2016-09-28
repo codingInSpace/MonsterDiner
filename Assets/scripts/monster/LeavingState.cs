@@ -38,6 +38,8 @@ namespace Assets.scripts.monster
             _monster.gameObject.transform.position = new Vector3(currentPos.x, _monster.GetSpawnCoordinates().y, currentPos.z);
 
             this._leaveTarget = new Vector2(_monster.GetSpawnCoordinates().x, _monster.GetSpawnCoordinates().y);
+
+            SimpleManager.PayForFood();
         }
 
         public void Update()
