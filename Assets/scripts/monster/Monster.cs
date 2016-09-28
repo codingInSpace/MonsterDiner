@@ -33,7 +33,7 @@ namespace Assets.scripts.monster
             CurrentState.Update();
         }
 
-        public Vector3 getSpawnCoordinates()
+        public Vector3 GetSpawnCoordinates()
         {
             return SpawnCoordinates;
         }

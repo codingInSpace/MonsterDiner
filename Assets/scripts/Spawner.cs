@@ -2,15 +2,15 @@
 
 public class Spawner : MonoBehaviour
 {
-    private const float spawnBaseRate = 0.15f;
-    private float spawnRate;
+    private const float SpawnBaseRate = 0.15f;
+    private float _spawnRate;
 
-    void spawnRandomMonster()
+    void SpawnRandomMonster()
     {
         float chance = Random.Range(0.0f, 1.0f);
-        Debug.Log("Polling spawn rate " + spawnRate + " with chance " + chance);
+        Debug.Log("Polling spawn rate " + _spawnRate + " with chance " + chance);
 
-        if (chance < spawnRate)
+        if (chance < _spawnRate)
         {
             SimpleManager.IncrementCustomerCount();
 
@@ -22,13 +22,13 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("spawnRandomMonster", 0, 5.0f);
+        InvokeRepeating("SpawnRandomMonster", 0, 5.0f);
     }
 
     void Update()
     {
         // Update the spawnrate based on smart factors
-        spawnRate = spawnBaseRate;
+        _spawnRate = SpawnBaseRate;
     }
 
 }

@@ -33,7 +33,7 @@ namespace Assets.scripts.monster
             if (noSeatAvailable)
             {
                 _monster.HasSeat = false;
-                _monster.TargetPos = SimpleManager.doorPos;
+                _monster.TargetPos = SimpleManager.DoorPos;
             }
         }
 
@@ -59,7 +59,7 @@ namespace Assets.scripts.monster
                 if (_monster.HasSeat)
                 {
                     _monster.gameObject.GetComponent<Animator>().SetInteger("direction", 5);
-                    _monster.gameObject.transform.position = new Vector3(currentPos.x, _monster.getSpawnCoordinates().y + 0.5f, currentPos.z);
+                    _monster.gameObject.transform.position = new Vector3(currentPos.x, _monster.GetSpawnCoordinates().y + 0.5f, currentPos.z);
                     UpdateState();
                 }
                 else

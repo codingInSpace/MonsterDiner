@@ -33,7 +33,7 @@ namespace Assets.scripts.monster
                 _monster.GetComponent<SpriteRenderer>().enabled = true;
             }
 
-            this._leaveTarget = new Vector2(_monster.getSpawnCoordinates().x, _monster.getSpawnCoordinates().y);
+            this._leaveTarget = new Vector2(_monster.GetSpawnCoordinates().x, _monster.GetSpawnCoordinates().y);
         }
 
         public void Update()
