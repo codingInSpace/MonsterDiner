@@ -13,7 +13,7 @@ namespace Assets.scripts.monster
             set { _hasSeat = value; }
         }
 
-        public Vector2 TargetSeat { get; set; }
+        public Vector2 TargetPos { get; set; }
 
         public abstract void Enter();
         public abstract void Update();

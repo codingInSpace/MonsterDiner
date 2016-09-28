@@ -12,8 +12,9 @@ public class Spawner : MonoBehaviour
 
         if (chance < spawnRate)
         {
-            Debug.Log("A mosnter would be spawned");
             SimpleManager.IncrementCustomerCount();
+
+            // Make random for multiple monsters
             const string monsterPath = "characters/monsters/pablo/pablo";
             GameObject monster = Instantiate(Resources.Load(monsterPath)) as GameObject;
         }

@@ -6,15 +6,13 @@ namespace Assets.scripts.monster
     {
         public EnteringState(MonsterState state)
             : this(state.Monster)
-        {
-
-        }
+        {}
 
         public EnteringState(Monster monster)
         {
             this.Monster = monster;
             this.HasSeat = false;
-            this.TargetSeat = new Vector2();
+            this.TargetPos = new Vector2();
         }
 
         public override void Enter()
@@ -25,18 +23,17 @@ namespace Assets.scripts.monster
             for (var i = 0; i < SimpleManager.TakenSeats.Length; ++i)
             {
                 if (SimpleManager.TakenSeats[i] != false) continue;
-                this.TargetSeat = SimpleManager.MonsterSeats[i];
+                this.TargetPos = SimpleManager.MonsterSeats[i];
                 this.HasSeat = true;
                 SimpleManager.TakenSeats[i] = true;
                 noSeatAvailable = false;
-                Debug.Log("Monster received seat " + TargetSeat.x);
                 break;
             }
 
             if (noSeatAvailable)
             {
                 this.HasSeat = false;
-                this.TargetSeat = SimpleManager.doorPos;
+                this.TargetPos = SimpleManager.doorPos;
             }
 
             // Update State to visiting
@@ -46,12 +43,12 @@ namespace Assets.scripts.monster
         {
             Vector3 currentPos = Monster.gameObject.transform.position;
 
-            if (currentPos.x < TargetSeat.x - 0.05f)
+            if (currentPos.x < TargetPos.x - 0.05f)
             {
                 Monster.gameObject.GetComponent<Animator>().SetInteger("direction", 6);
                 Monster.gameObject.transform.Translate(0.05f, 0.0f, 0.0f);
             }
-            else if (currentPos.x > TargetSeat.x + 0.05f)
+            else if (currentPos.x > TargetPos.x + 0.05f)
             {
                 Monster.gameObject.GetComponent<Animator>().SetInteger("direction", 4);
                 Monster.gameObject.transform.Translate(-0.05f, 0.0f, 0.0f);
@@ -76,7 +73,7 @@ namespace Assets.scripts.monster
 
         public override void Print()
         {
-            Debug.Log("Monster: " + "hasSeat = " + HasSeat + ", targetSeat = " + TargetSeat.x);
+            Debug.Log("Monster Entering: " + ((HasSeat) ? "has seat " + HasSeat + ", ": "") + "targetPos = " + TargetPos.x);
         }
     }
 }
